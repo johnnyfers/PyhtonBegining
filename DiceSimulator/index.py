@@ -1,18 +1,26 @@
 import random
+import PySimpleGUI as sg
 
 class DiceSimulator:
     def __init__(self):
         self.min_value = 1
         self.max_value = 6
         self.message = 'do u want to generate another value? (yes/no)'
-    
+        
+        self.layout = [
+            [sg.Text('Shoot the dice?')],
+            [sg.Button('yes'), sg.Button('no')]
+        ]
+
     def main(self):
-        answer = input(self.message)
+        self.window = sg.Window('Dice Simulator', layout=self.layout)
+        
+        self.events, self.values = self.window.read()
         
         try:
-            if answer == 'yes':
+            if self.events == 'yes':
                 self.generateDiceValue()
-            elif answer == 'no':
+            elif self.events == 'no':
                 print('thanks for using it :)')
             else:
                 print('invalid input')
@@ -24,4 +32,4 @@ class DiceSimulator:
 
 simulator = DiceSimulator()
 
-simulator.main
+simulator.main()
